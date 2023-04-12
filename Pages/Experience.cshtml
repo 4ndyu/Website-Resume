@@ -8,7 +8,7 @@
     <br />
     @foreach (Experience experience in Model.experiences)
     {
-        <h5 class="jobTitle">@experience.JobStatus - @experience.Position</h5>
+        <h5 class="jobTitle">@experience.JobTypeToString() - @experience.Position</h5>
         <h6 class="company">@experience.Company.ToUpper()</h6>
         <h7 class="duration">@experience.StartDate.ToString("Y") - @experience.EndDate.ToString("Y")</h7>
         <p class="text">@experience.Description</p>

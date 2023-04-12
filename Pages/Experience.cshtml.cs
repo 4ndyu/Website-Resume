@@ -1,13 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Reflection.Metadata;
+using static ResumeWebsite.Pages.Experience;
 
 namespace ResumeWebsite.Pages
 {
     public class Experience
     {
-        public string JobStatus { get; set; }
-        public string Industry { get; set; }
+        public enum JobType
+        {
+            FullTime = 0,
+            PartTime = 1,
+            Casual = 2,
+            Volunteer = 3,
+            WorkExperience = 4
+        }
+
+        public enum IndustryType
+        {
+            Construction = 0,
+            CustomerService = 1,
+            InformationTech = 2,
+        }
+
+        public JobType JobStatus { get; set; }
+        public IndustryType Industry { get; set; }
         public string Position { get; set; }
         public string Company { get; set; }
         public DateTime StartDate { get; set; }
@@ -15,9 +32,8 @@ namespace ResumeWebsite.Pages
         public string Description { get; set; }
         public List<string> Projects { get; set; }
 
-        public Experience(string jobStatus, string industry, string position, string company, DateTime startDate, DateTime endDate, string description)
+        public Experience(JobType jobStatus, IndustryType industry, string position, string company, DateTime startDate, DateTime endDate, string description)
         {
-            
             JobStatus = jobStatus;
             Industry = industry;
             Position = position;
@@ -26,6 +42,52 @@ namespace ResumeWebsite.Pages
             EndDate = endDate;
             Description = description;
             Projects = new List<string> ();
+        }
+
+        public string JobTypeToString()
+        {
+            string typeStr;
+
+            switch (this.JobStatus)
+            {
+                case JobType.FullTime:
+                    typeStr = "Full-Time";
+                    break;
+                case JobType.PartTime:
+                    typeStr = "Part-Time";
+                    break;
+                case JobType.Casual:
+                    typeStr = "Casual";
+                    break;
+                case JobType.Volunteer:
+                    typeStr = "Volunteer";
+                    break;
+                default:
+                    typeStr = "Work Experience";
+                    break;
+            }
+
+            return typeStr;
+        }
+
+        public string IndustryTypeToString()
+        {
+            string typeStr;
+
+            switch (this.Industry)
+            {
+                case IndustryType.InformationTech:
+                    typeStr = "Information Technology and Communications";
+                    break;
+                case IndustryType.Construction:
+                    typeStr = "Construction";
+                    break;
+                default:
+                    typeStr = "Customer Service";
+                    break;
+            }
+
+            return typeStr;
         }
     }
     
@@ -38,8 +100,8 @@ namespace ResumeWebsite.Pages
             experiences.Add(
                 new Experience
                 (
-                    "Full-Time",
-                    "Information Technologies and Communication",
+                    JobType.FullTime,
+                    IndustryType.InformationTech,
                     "Software Engineer",
                     "Immersive Technologies",
                     new DateTime(2022, 5, 1),
@@ -50,8 +112,8 @@ namespace ResumeWebsite.Pages
             experiences.Add(
                 new Experience
                 (
-                    "Volunteer",
-                    "Information Technologies and Communication",
+                    JobType.Volunteer,
+                    IndustryType.InformationTech,
                     "Front-End Developer",
                     "Obsi PTY LTD",
                     new DateTime(2021, 11, 1),
