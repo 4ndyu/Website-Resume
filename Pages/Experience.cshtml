@@ -12,6 +12,14 @@
         <h6 class="company">@experience.Company.ToUpper()</h6>
         <h7 class="duration">@experience.StartDate.ToString("Y") - @experience.EndDate.ToString("Y")</h7>
         <p class="text">@experience.Description</p>
+        <h6 class="projects">Projects</h6>
+        <ul class="projectList">
+			@foreach (string project in experience.Projects)
+			{
+				<li>@project</li>
+			}
+        </ul>
+
         <br />
     }
 </div>
